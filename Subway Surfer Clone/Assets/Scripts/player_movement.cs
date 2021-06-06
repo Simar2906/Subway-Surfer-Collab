@@ -9,9 +9,13 @@ public class player_movement : MonoBehaviour
     public int speed = 10;
     public KeyCode leftKey;
     public KeyCode rightKey;
+
+    private bool movingLeft = false;
+    private bool movingRight = false;
     void Start()
     {
         player.transform.position = new Vector3(0, 1, 0);
+        Debug.Log("Start");
     }
 
     // Update is called once per frame
@@ -30,13 +34,20 @@ public class player_movement : MonoBehaviour
         if(Input.GetKeyDown(leftKey) && player.transform.position.x > -4) 
         // for future reference, if we add smooth transition change these values
         {
-            player.transform.position += new Vector3(-5, 0, 0);
+            //player.transform.position += new Vector3(-5, 0, 0);
             Debug.Log("move left");
         }
         if(Input.GetKeyDown(rightKey) && player.transform.position.x < 4)
         {
-            player.transform.position += new Vector3(5, 0, 0);
+            //player.transform.position += new Vector3(5, 0, 0);
+            player.transform.position = Vector3.Lerp (player.transform.position, new Vector3(player.transform.position.x + 5, player.transform.position.y, player.transform.position.z), 1f);
             Debug.Log("move right");
         }
+        /*while(player.transform.position.x != 5f && movingLeft)
+        {
+            Debug.Log("moving automatically");
+            player.transform.position = Vector3.Lerp (player.transform.position, new Vector3(-5, player.transform.position.y, player.transform.position.z), 0.1f);
+        }*/
+
     }
 }
